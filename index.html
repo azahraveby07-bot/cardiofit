@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CardioFit</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<aside class="sidebar">
+
+    <div class="logo">
+        <div class="logo-icon">♥</div>
+        <span>CardioFit</span>
+    </div>
+
+    <nav>
+
+        <button class="nav-item active" onclick="showPage('dashboard', this)">
+            <span>⌂</span>
+            Dashboard
+        </button>
+
+        <button class="nav-item" onclick="showPage('workout', this)">
+            <span>◉</span>
+            Workout
+        </button>
+
+        <button class="nav-item" onclick="showPage('progress', this)">
+            <span>↗</span>
+            Progress
+        </button>
+
+        <button class="nav-item" onclick="showPage('nutrition', this)">
+            <span>♡</span>
+            Nutrition
+        </button>
+
+    </nav>
+
+    <div class="sidebar-bottom">
+        <p>Stay active.</p>
+        <strong>Stay healthy.</strong>
+    </div>
+
+</aside>
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="main">
+
+    <!-- TOPBAR -->
+
+    <header class="topbar">
+
+        <div>
+            <button class="mobile-menu" onclick="toggleSidebar()">☰</button>
+        </div>
+
+        <div class="top-profile">
+            <div class="avatar">U</div>
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         DASHBOARD
+    ========================= -->
+
+    <section id="dashboard" class="page active-page">
+
+        <div class="page-header">
+
+            <div>
+                <p class="eyebrow">WELCOME BACK</p>
+
+                <h1>
+                    Ready for your
+                    <span>workout?</span>
+                </h1>
+
+                <p class="subtitle">
+                    Small steps every day make a big difference.
+                </p>
+            </div>
+
+        </div>
+
+
+        <!-- Progress Card -->
+
+        <div class="dashboard-grid">
+
+            <div class="card progress-card">
+
+                <div class="card-title">
+                    <div>
+                        <p class="eyebrow">YOUR PROGRESS</p>
+                        <h2>Weight Goal</h2>
+                    </div>
+
+                    <span class="small-icon">↗</span>
+                </div>
+
+                <div class="weight-summary">
+
+                    <div>
+                        <span>Current</span>
+                        <strong id="dashboardWeight">68.5 kg</strong>
+                    </div>
+
+                    <div>
+                        <span>Target</span>
+                        <strong id="dashboardTarget">60 kg</strong>
+                    </div>
+
+                </div>
+
+                <div class="progress-bar">
+                    <div id="weightProgress"></div>
+                </div>
+
+                <div class="progress-label">
+                    <span>Goal progress</span>
+                    <strong id="progressPercent">0%</strong>
+                </div>
+
+            </div>
+
+
+            <!-- BMI -->
+
+            <div class="card stat-card">
+
+                <div class="stat-icon purple">
+                    ♡
+                </div>
+
+                <p>BMI</p>
+
+                <h2 id="dashboardBMI">--</h2>
+
+                <span id="bmiStatus">
+                    Add your profile
+                </span>
+
+            </div>
+
+
+            <!-- Workout -->
+
+            <div class="card stat-card">
+
+                <div class="stat-icon pink">
+                    ◉
+                </div>
+
+                <p>Workouts</p>
+
+                <h2 id="dashboardWorkoutCount">0</h2>
+
+                <span>This month</span>
+
+            </div>
+
+        </div>
+
+
+        <!-- Today's Goal -->
+
+        <div class="section-title">
+
+            <div>
+                <p class="eyebrow">TODAY</p>
+                <h2>Today's Goal</h2>
+            </div>
+
+        </div>
+
+
+        <div class="goal-grid">
+
+            <div class="goal-card">
+
+                <div class="goal-icon">
+                    🔥
+                </div>
+
+                <div>
+                    <span>Workout</span>
+                    <strong id="todayWorkout">
+                        0 min
+                    </strong>
+                </div>
+
+            </div>
+
+
+            <div class="goal-card">
+
+                <div class="goal-icon">
+                    💧
+                </div>
+
+                <div>
+                    <span>Water</span>
+                    <strong id="todayWater">
+                        0 / 8
+                    </strong>
+                </div>
+
+                <button onclick="addWater()">+</button>
+
+            </div>
+
+
+            <div class="goal-card">
+
+                <div class="goal-icon">
+                    🥗
+                </div>
+
+                <div>
+                    <span>Calories</span>
+                    <strong id="todayCalories">
+                        0 kcal
+                    </strong>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Start Workout -->
+
+        <div class="hero-workout">
+
+            <div>
+
+                <p class="eyebrow">
+                    RECOMMENDED
+                </p>
+
+                <h2>
+                    30 Min Walking Cardio
+                </h2>
+
+                <p>
+                    Full body cardio workout
+                    you can do at home.
+                </p>
+
+                <button
+                    class="primary-btn"
+                    onclick="startRecommendedWorkout()"
+                >
+                    Start Workout →
+                </button>
+
+            </div>
+
+            <div class="hero-circle">
+                <span>30</span>
+                <small>MIN</small>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         WORKOUT PAGE
+    ========================= -->
+
+    <section id="workout" class="page">
+
+        <div class="page-header">
+
+            <div>
+                <p class="eyebrow">WORKOUT</p>
+
+                <h1>
+                    Choose your
+                    <span>workout</span>
+                </h1>
+
+                <p class="subtitle">
+                    Find a workout that fits your energy today.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="workout-grid">
+
+            <!-- Beginner -->
+
+            <div class="workout-card">
+
+                <div class="workout-image beginner">
+                    <span>BEGINNER</span>
+                </div>
+
+                <div class="workout-content">
+
+                    <span class="tag">
+                        Easy
+                    </span>
+
+                    <h3>
+                        Beginner Cardio
+                    </h3>
+
+                    <p>
+                        A simple cardio session
+                        for beginners.
+                    </p>
+
+                    <div class="workout-info">
+                        <span>⏱ 10 min</span>
+                        <span>🔥 ~80 kcal</span>
+                    </div>
+
+                    <button
+                        class="primary-btn full"
+                        onclick="startWorkout('beginner')"
+                    >
+                        Start
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- Fat Burn -->
+
+            <div class="workout-card">
+
+                <div class="workout-image fatburn">
+                    <span>FAT BURN</span>
+                </div>
+
+                <div class="workout-content">
+
+                    <span class="tag pink-tag">
+                        Medium
+                    </span>
+
+                    <h3>
+                        Fat Burn Cardio
+                    </h3>
+
+                    <p>
+                        Move your whole body
+                        and raise your heart rate.
+                    </p>
+
+                    <div class="workout-info">
+                        <span>⏱ 20 min</span>
+                        <span>🔥 ~160 kcal</span>
+                    </div>
+
+                    <button
+                        class="primary-btn full"
+                        onclick="startWorkout('fatburn')"
+                    >
+                        Start
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- 30 Minute -->
+
+            <div class="workout-card featured-workout">
+
+                <div class="workout-image walking">
+                    <span>POPULAR</span>
+                </div>
+
+                <div class="workout-content">
+
+                    <span class="tag">
+                        Full Body
+                    </span>
+
+                    <h3>
+                        30 Min Walking Cardio
+                    </h3>
+
+                    <p>
+                        30 exercises based on
+                        the walking workout reference.
+                    </p>
+
+                    <div class="workout-info">
+                        <span>⏱ 30 min</span>
+                        <span>🔥 ~220 kcal</span>
+                    </div>
+
+                    <button
+                        class="primary-btn full"
+                        onclick="startWorkout('walking')"
+                    >
+                        Start
+                    </button>
+
+                    <button
+                        class="secondary-btn full"
+                        onclick="openVideo()"
+                    >
+                        Watch Video
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- Full Body -->
+
+            <div class="workout-card">
+
+                <div class="workout-image fullbody">
+                    <span>FULL BODY</span>
+                </div>
+
+                <div class="workout-content">
+
+                    <span class="tag purple-tag">
+                        Medium
+                    </span>
+
+                    <h3>
+                        Full Body Cardio
+                    </h3>
+
+                    <p>
+                        Cardio movements for
+                        your arms, core and legs.
+                    </p>
+
+                    <div class="workout-info">
+                        <span>⏱ 30 min</span>
+                        <span>🔥 ~250 kcal</span>
+                    </div>
+
+                    <button
+                        class="primary-btn full"
+                        onclick="startWorkout('fullbody')"
+                    >
+                        Start
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Workout Player -->
+
+        <div
+            id="workoutPlayer"
+            class="workout-player hidden"
+        >
+
+            <div class="player-top">
+
+                <button
+                    class="close-player"
+                    onclick="closeWorkout()"
+                >
+                    ×
+                </button>
+
+                <span id="playerProgram">
+                    30 MIN WALKING
+                </span>
+
+            </div>
+
+
+            <div class="timer-circle">
+
+                <span id="timer">
+                    40
+                </span>
+
+                <small id="timerType">
+                    EXERCISE
+                </small>
+
+            </div>
+
+
+            <div class="exercise-info">
+
+                <p>
+                    EXERCISE
+                    <span id="exerciseNumber">
+                        1 / 30
+                    </span>
+                </p>
+
+                <h2 id="exerciseName">
+                    Walk in Place
+                </h2>
+
+                <div class="player-progress">
+                    <div id="exerciseProgress"></div>
+                </div>
+
+                <p class="next-exercise">
+                    Next:
+                    <strong id="nextExercise">
+                        Arm Lift + High Knee
+                    </strong>
+                </p>
+
+            </div>
+
+
+            <div class="player-controls">
+
+                <button onclick="previousExercise()">
+                    ←
+                </button>
+
+                <button
+                    class="pause-btn"
+                    onclick="togglePause()"
+                    id="pauseButton"
+                >
+                    ❚❚
+                </button>
+
+                <button onclick="nextExercise()">
+                    →
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- Video Modal -->
+
+        <div
+            id="videoModal"
+            class="modal hidden"
+        >
+
+            <div class="modal-content">
+
+                <button
+                    class="modal-close"
+                    onclick="closeVideo()"
+                >
+                    ×
+                </button>
+
+                <h2>30 Min Walking Workout</h2>
+
+                <div class="video-container">
+
+                    <iframe
+                        src="https://www.youtube.com/embed/ow3hpYJqYEI"
+                        title="Cardio Workout"
+                        allowfullscreen>
+                    </iframe>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         PROGRESS PAGE
+    ========================= -->
+
+    <section id="progress" class="page">
+
+        <div class="page-header">
+
+            <div>
+                <p class="eyebrow">PROGRESS</p>
+
+                <h1>
+                    Track your
+                    <span>progress</span>
+                </h1>
+
+                <p class="subtitle">
+                    Small improvements add up over time.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="progress-stats">
+
+            <div class="card stat-card">
+                <p>Starting Weight</p>
+                <h2 id="startWeightDisplay">
+                    -- kg
+                </h2>
+            </div>
+
+            <div class="card stat-card">
+                <p>Current Weight</p>
+                <h2 id="currentWeightDisplay">
+                    -- kg
+                </h2>
+            </div>
+
+            <div class="card stat-card">
+                <p>Target Weight</p>
+                <h2 id="targetWeightDisplay">
+                    -- kg
+                </h2>
+            </div>
+
+            <div class="card stat-card">
+                <p>Streak</p>
+                <h2>
+                    🔥 <span id="streakDisplay">0</span>
+                </h2>
+            </div>
+
+        </div>
+
+
+        <div class="progress-layout">
+
+            <div class="card chart-card">
+
+                <div class="card-title">
+
+                    <div>
+                        <p class="eyebrow">
+                            WEIGHT
+                        </p>
+
+                        <h2>
+                            Weight Progress
+                        </h2>
+                    </div>
+
+                </div>
+
+                <canvas id="weightChart"></canvas>
+
+            </div>
+
+
+            <div class="card measurements-card">
+
+                <p class="eyebrow">
+                    BODY
+                </p>
+
+                <h2>
+                    Measurements
+                </h2>
+
+                <div class="measurement">
+
+                    <span>Height</span>
+
+                    <strong id="heightDisplay">
+                        -- cm
+                    </strong>
+
+                </div>
+
+                <div class="measurement">
+
+                    <span>Waist</span>
+
+                    <strong id="waistDisplay">
+                        -- cm
+                    </strong>
+
+                </div>
+
+                <div class="measurement">
+
+                    <span>Chest</span>
+
+                    <strong id="chestDisplay">
+                        -- cm
+                    </strong>
+
+                </div>
+
+                <div class="measurement">
+
+                    <span>Hips</span>
+
+                    <strong id="hipsDisplay">
+                        -- cm
+                    </strong>
+
+                </div>
+
+                <button
+                    class="secondary-btn full"
+                    onclick="editProfile()"
+                >
+                    Update Data
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="card bmi-card">
+
+            <div>
+
+                <p class="eyebrow">
+                    BODY MASS INDEX
+                </p>
+
+                <h2>
+                    BMI
+                </h2>
+
+            </div>
+
+            <div class="bmi-result">
+
+                <strong id="progressBMI">
+                    --
+                </strong>
+
+                <span id="progressBMIStatus">
+                    --
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         NUTRITION PAGE
+    ========================= -->
+
+    <section id="nutrition" class="page">
+
+        <div class="page-header">
+
+            <div>
+
+                <p class="eyebrow">
+                    NUTRITION
+                </p>
+
+                <h1>
+                    Eat better,
+                    <span>feel better.</span>
+                </h1>
+
+                <p class="subtitle">
+                    Keep your daily meals simple and balanced.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="nutrition-grid">
+
+            <!-- Calories -->
+
+            <div class="card calorie-card">
+
+                <p class="eyebrow">
+                    TODAY'S CALORIES
+                </p>
+
+                <div class="calorie-number">
+
+                    <strong id="caloriesConsumed">
+                        0
+                    </strong>
+
+                    <span>
+                        / 1800 kcal
+                    </span>
+
+                </div>
+
+                <div class="progress-bar">
+
+                    <div id="calorieProgress"></div>
+
+                </div>
+
+                <button
+                    class="primary-btn"
+                    onclick="addMeal()"
+                >
+                    + Add Meal
+                </button>
+
+            </div>
+
+
+            <!-- Water -->
+
+            <div class="card water-card">
+
+                <p class="eyebrow">
+                    WATER
+                </p>
+
+                <h2>
+                    <span id="waterCount">
+                        0
+                    </span>
+                    / 8 glasses
+                </h2>
+
+                <div
+                    id="waterGlasses"
+                    class="water-glasses"
+                >
+                </div>
+
+                <button
+                    class="secondary-btn"
+                    onclick="addWater()"
+                >
+                    + Add Water
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- Daily Menu -->
+
+        <div class="section-title">
+
+            <div>
+                <p class="eyebrow">
+                    DAILY MENU
+                </p>
+
+                <h2>
+                    Today's Meals
+                </h2>
+            </div>
+
+            <button
+                class="secondary-btn"
+                onclick="generateMenu()"
+            >
+                Generate Menu
+            </button>
+
+        </div>
+
+
+        <div
+            id="mealList"
+            class="meal-list"
+        >
+        </div>
+
+
+    </section>
+
+
+</main>
+
+
+<!-- =========================
+     PROFILE MODAL
+========================= -->
+
+<div
+    id="profileModal"
+    class="modal hidden"
+>
+
+    <div class="modal-content profile-modal">
+
+        <button
+            class="modal-close"
+            onclick="closeProfile()"
+        >
+            ×
+        </button>
+
+        <h2>Your Profile</h2>
+
+        <p class="modal-description">
+            Enter your basic information.
+        </p>
+
+
+        <label>
+            Name
+            <input
+                type="text"
+                id="profileName"
+                placeholder="Your name"
+            >
+        </label>
+
+
+        <label>
+            Height (cm)
+            <input
+                type="number"
+                id="profileHeight"
+                placeholder="165"
+            >
+        </label>
+
+
+        <label>
+            Starting Weight (kg)
+            <input
+                type="number"
+                id="profileStartWeight"
+                placeholder="70"
+            >
+        </label>
+
+
+        <label>
+            Current Weight (kg)
+            <input
+                type="number"
+                id="profileWeight"
+                placeholder="68.5"
+            >
+        </label>
+
+
+        <label>
+            Target Weight (kg)
+            <input
+                type="number"
+                id="profileTarget"
+                placeholder="60"
+            >
+        </label>
+
+
+        <label>
+            Waist (cm)
+            <input
+                type="number"
+                id="profileWaist"
+                placeholder="80"
+            >
+        </label>
+
+
+        <label>
+            Chest (cm)
+            <input
+                type="number"
+                id="profileChest"
+                placeholder="90"
+            >
+        </label>
+
+
+        <label>
+            Hips (cm)
+            <input
+                type="number"
+                id="profileHips"
+                placeholder="95"
+            >
+        </label>
+
+
+        <button
+            class="primary-btn full"
+            onclick="saveProfile()"
+        >
+            Save Profile
+        </button>
+
+    </div>
+
+</div>
+
+
+<script src="app.js"></script>
+<script src="workout.js"></script>
+<script src="progress.js"></script>
+<script src="nutrition.js"></script>
+
+</body>
+</html>
